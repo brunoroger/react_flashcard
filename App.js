@@ -6,20 +6,20 @@ import Deck from './Deck';
 import NewDeck from './NewDeck';
 
 const Tabs = TabNavigator({
+  Deck: {
+    screen: Deck,
+    navigationOptions: {
+      tabBarLabel: 'Decks',
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+    },
+  },
   NewDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
-  },
-  Deck: {
-    screen: Deck,
-    navigationOptions: {
-      tabBarLabel: 'Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
-    },
-  },
+  }
 }, {
   navigationOptions: {
     header: null
