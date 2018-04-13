@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, YellowBox, TouchableOpacity } from 'react-native';
 
-export default class DeckDetails extends React.Component {
+export default class Quest extends React.Component {
 	constructor(props) {
 	 
 	   super(props);
@@ -15,8 +15,8 @@ export default class DeckDetails extends React.Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<Text style={styles.title}>udacicards</Text>
-				<Text style={styles.subTitle}>3 cards</Text>
+				<Text style={styles.title}>Does React Native work with Android?</Text>
+				<Text style={styles.subTitle}>Answer</Text>
 				<TouchableOpacity style={styles.button}>
 					<Text>Add Card</Text>
 				</TouchableOpacity>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 		fontSize: 30
 	},
 	subTitle: {
-		color: 'gray'
+		color: 'red'
 	},
 	textWhite: {
 		color: 'white'
