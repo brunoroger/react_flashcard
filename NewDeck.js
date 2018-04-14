@@ -1,13 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from 'react-native';
+import { saveDeckTitle } from './utils/api';
 
 export default class NewDeck extends React.Component {
+	constructor(props) {
+	 
+	   super(props);
+	 
+	   YellowBox.ignoreWarnings([
+		'Warning: componentWillMount is deprecated',
+		'Warning: componentWillReceiveProps is deprecated',
+	  ]); 
+	}
+	
+	state = {
+		title: ''
+	};
+	
+	handleSubmit = () => {
+		saveDeckTitle(this.state.title);
+	};
+	
 	render(){
 		return(
 			<View style={styles.container}>
 				<Text style={styles.title}>What is the title of your new deck?</Text>
-				<TextInput style={styles.input} placeholder = "Deck Title"/>
-				<TouchableOpacity style={styles.submitButton}>
+				<TextInput style={styles.input} onChangeText={(title) => this.setState({title})} placeholder = "Deck Title"/>
+				<TouchableOpacity style={styles.submitButton} onClick={() => this.handleSubmit }>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>
 			</View>
