@@ -5,6 +5,9 @@ import { gray, white } from './utils/colors.js';
 import Deck from './Deck';
 import NewDeck from './NewDeck';
 import DeckDetails from './DeckDetails';
+import Quest from './Quest';
+import Answer from './Answer';
+import AddCard from './AddCard';
 
 const Tabs = TabNavigator({
   Deck: {
@@ -47,6 +50,15 @@ const Stack = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails
+  },
+  Quest: {
+	screen: Quest
+  },
+  Answer: {
+	screen: Answer
+  },
+  AddCard: {
+	screen: AddCard
   }
 });
 

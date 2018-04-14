@@ -15,13 +15,15 @@ export default class Answer extends React.Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<Text style={styles.title}>Does React Native work with Android?</Text>
-				<Text style={styles.subTitle}>Answer</Text>
-				<TouchableOpacity style={styles.button}>
-					<Text>Add Card</Text>
+				<Text style={styles.title}>Yes</Text>
+				<TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+					<Text style={styles.subTitle}>Question</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.buttonBlack}>
-					<Text style={styles.textWhite}>Start Quiz</Text>
+				<TouchableOpacity style={styles.button}>
+					<Text style={styles.textWhite}>Correct</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.buttonRed}>
+					<Text style={styles.textWhite}>Incorrect</Text>
 				</TouchableOpacity>
 			</View>
 		);
@@ -44,13 +46,13 @@ const styles = StyleSheet.create({
 		color: 'white'
 	},
 	button: {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       padding: 10,
       margin: 15,
       height: 40,
    },
-   buttonBlack: {
-	  backgroundColor: 'black',
+   buttonRed: {
+	  backgroundColor: 'red',
       padding: 10,
       margin: 15,
       height: 40,
