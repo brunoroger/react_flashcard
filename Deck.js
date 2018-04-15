@@ -26,7 +26,9 @@ export default class Deck extends React.Component {
 		return(
 			<View style={styles.container}>
 				{this.state.decks.map((deck) => (
-					<TouchableOpacity key={deck.title} style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails')}>
+					<TouchableOpacity key={deck.id} style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails', {
+						idDeck: deck.id
+					})}>
 						<Text style={styles.title}>{deck.title}</Text>
 						<Text style={styles.subTitle}>3 cards</Text>
 					</TouchableOpacity>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from 'react-native';
-import { saveDeckTitle } from './utils/api';
+import { saveDeckTitle, getDecks } from './utils/api';
 
 export default class NewDeck extends React.Component {
 	constructor(props) {
@@ -14,11 +14,19 @@ export default class NewDeck extends React.Component {
 	}
 	
 	state = {
-		title: ''
+		title: '',
+		obj: {}
 	};
 	
 	handleSubmit = () => {
 		saveDeckTitle(this.state.title);
+		
+		this.setState({ ...this.state, obj: 'aguarde' });
+		
+		getDecks()
+		.then((resul) => {
+			this.setState({ ...this.state, obj: resul });
+		});
 	};
 	
 	render(){
