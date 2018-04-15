@@ -25,10 +25,11 @@ export default class NewDeck extends React.Component {
 		return(
 			<View style={styles.container}>
 				<Text style={styles.title}>What is the title of your new deck?</Text>
-				<TextInput style={styles.input} onChangeText={(title) => this.setState({title})} placeholder = "Deck Title"/>
-				<TouchableOpacity style={styles.submitButton} onClick={() => this.handleSubmit }>
+				<TextInput style={styles.input} onChangeText={(title) => { this.setState({title}); }} placeholder = "Deck Title"/>
+				<TouchableOpacity style={styles.submitButton} onPress={() => { this.handleSubmit(); } }>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>
+				<Text>{JSON.stringify(this.state.obj)}</Text>
 			</View>
 		);
 	}

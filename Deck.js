@@ -1,22 +1,36 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, YellowBox } from 'react-native';
+import { getDecks } from './utils/api';
 
 export default class Deck extends React.Component {
+	constructor(props){
+		super(props);
+		
+		YellowBox.ignoreWarnings([
+			'Warning: componentWillMount is deprecated',
+			'Warning: componentWillReceiveProps is deprecated',
+		]);
+	}
+	
+	state = {
+		decks: []
+	};
+	
+	componentDidMount(){
+		getDecks().then((res) => {
+			this.setState({ decks: res });
+		});
+	}
+	
 	render(){
 		return(
 			<View style={styles.container}>
-				<TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails')}>
-					<Text style={styles.title}>udacicards</Text>
-					<Text style={styles.subTitle}>3 cards</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails')}>
-					<Text style={styles.title}>New Deck</Text>
-					<Text style={styles.subTitle}>0 cards</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails')}>
-					<Text style={styles.title}>New Deck 2</Text>
-					<Text style={styles.subTitle}>0 cards</Text>
-				</TouchableOpacity>
+				{this.state.decks.map((deck) => (
+					<TouchableOpacity key={deck.title} style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails')}>
+						<Text style={styles.title}>{deck.title}</Text>
+						<Text style={styles.subTitle}>3 cards</Text>
+					</TouchableOpacity>
+				))}
 			</View>
 		);
 	}
