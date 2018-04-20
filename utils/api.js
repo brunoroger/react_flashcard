@@ -3,32 +3,6 @@ import uuidv1 from "uuid";
 
 export const KEY = 'react:flashcard';
 
-export function toArray(json){
-	const obj = JSON.parse(json);
-	
-	let array = [];
-	const keys = Object.keys(obj);
-	
-	keys.map(key => {
-		array = [ ...array, obj[key] ];
-	});
-	
-	return array;
-}
-
-export function searchDeck(id, json){
-	const listDeck = toArray(json);
-	let deck = null;
-	
-	listDeck.map(obj => {
-		if(obj.id === id){
-			deck = obj;
-		}
-	});
-	
-	return deck;
-}
-
 export function saveDeckTitle(title){
 	const key = uuidv1();
 	

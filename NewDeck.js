@@ -1,8 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from 'react-native';
-import { saveDeckTitle, getDecks } from './utils/api';
+import { connect } from "react-redux";
+import uuidv1 from "uuid";
+import { saveDeckTitle } from './actions';
+//import { saveDeckTitle } from './utils/api';
 
-export default class NewDeck extends React.Component {
+const mapDispatchToProps = dispatch => {
+	return {
+		saveDeckTitle: (id, title) => dispatch(saveDeckTitle(id, title))
+	};
+};
+
+class NewDeck extends React.Component {
 	constructor(props) {
 	 
 	   super(props);
@@ -14,19 +23,14 @@ export default class NewDeck extends React.Component {
 	}
 	
 	state = {
-		title: '',
-		obj: {}
+		title: ''
 	};
 	
 	handleSubmit = () => {
-		saveDeckTitle(this.state.title);
+		//saveDeckTitle(this.state.title);
+		const id = uuidv1();
 		
-		this.setState({ ...this.state, obj: 'aguarde' });
-		
-		getDecks()
-		.then((resul) => {
-			this.setState({ ...this.state, obj: resul });
-		});
+		this.props.saveDeckTitle(id, this.state.title);
 	};
 	
 	render(){
@@ -37,7 +41,6 @@ export default class NewDeck extends React.Component {
 				<TouchableOpacity style={styles.submitButton} onPress={() => { this.handleSubmit(); } }>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>
-				<Text>{JSON.stringify(this.state.obj)}</Text>
 			</View>
 		);
 	}
@@ -69,3 +72,5 @@ const styles = StyleSheet.create({
       color: 'white'
    }
 });
+
+export default connect(null, mapDispatchToProps)(NewDeck);

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { gray, white } from './utils/colors.js';
+import reducer from './reducers';
 import Deck from './Deck';
 import NewDeck from './NewDeck';
 import DeckDetails from './DeckDetails';
@@ -62,12 +65,16 @@ const Stack = StackNavigator({
   }
 });
 
+const store = createStore(reducer);
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-		<Stack/>
-      </View>
+	  <Provider store={store}>
+		  <View style={styles.container}>
+			<Stack/>
+		  </View>
+	  </Provider>
     );
   }
 }

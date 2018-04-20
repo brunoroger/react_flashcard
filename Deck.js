@@ -1,8 +1,16 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, YellowBox } from 'react-native';
+import { connect } from "react-redux";
+import { toArray } from './utils/helpers';
 import { getDecks } from './utils/api';
 
-export default class Deck extends React.Component {
+const mapStateToProps = state => {
+	return {
+		decks: toArray(state)
+	};
+};
+
+class Deck extends React.Component {
 	constructor(props){
 		super(props);
 		
@@ -12,20 +20,10 @@ export default class Deck extends React.Component {
 		]);
 	}
 	
-	state = {
-		decks: []
-	};
-	
-	componentDidMount(){
-		getDecks().then((res) => {
-			this.setState({ decks: res });
-		});
-	}
-	
 	render(){
 		return(
 			<View style={styles.container}>
-				{this.state.decks.map((deck) => (
+				{this.props.decks.map((deck) => (
 					<TouchableOpacity key={deck.id} style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails', {
 						idDeck: deck.id
 					})}>
@@ -58,3 +56,5 @@ const styles = StyleSheet.create({
 	color: 'gray'
   }
 });
+
+export default connect(mapStateToProps)(Deck);
