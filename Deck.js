@@ -6,7 +6,7 @@ import { getDecks } from './utils/api';
 
 const mapStateToProps = state => {
 	return {
-		decks: toArray(state)
+		decks: toArray(state.decks)
 	};
 };
 

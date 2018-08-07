@@ -11,6 +11,7 @@ import DeckDetails from './DeckDetails';
 import Quest from './Quest';
 import Answer from './Answer';
 import AddCard from './AddCard';
+import Score from './Score';
 
 const Tabs = TabNavigator({
   Deck: {
@@ -62,6 +63,9 @@ const Stack = StackNavigator({
   },
   AddCard: {
 	screen: AddCard
+  },
+  Score: {
+  screen: Score
   }
 });
 

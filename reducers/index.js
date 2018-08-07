@@ -1,17 +1,23 @@
 import { searchDeck } from '../utils/helpers.js';
-import { SAVE_DECK_TITLE, SAVE_CARD_DECK } from '../actions';
+import { SAVE_DECK_TITLE, SAVE_CARD_DECK, ADD_SCORE } from '../actions';
 
-const initialState = {};
+const initialState = {
+	decks: {},
+	score: 0
+};
 
 const reducer = (state = initialState, action) => {
 	switch(action.type){
 		case SAVE_DECK_TITLE:
 			return {
 				...state,
-				[action.deck.id]: action.deck
+				decks: {
+					...state.decks,
+					[action.deck.id]: action.deck
+				}
 			};
 		case SAVE_CARD_DECK:
-			const deck = searchDeck(action.idDeck, state);
+			const deck = searchDeck(action.idDeck, state.decks);
 			
 			if(!deck.questions){
 				deck.questions = [ action.card ];
@@ -21,7 +27,15 @@ const reducer = (state = initialState, action) => {
 			
 			return {
 				...state,
-				[action.idDeck]: deck
+				decks: {
+					...state.decks,
+					[action.idDeck]: deck
+				}
+			};
+		case ADD_SCORE:
+			return {
+				...state,
+				score: state.score + 1
 			};
 		default:
 			return state;
