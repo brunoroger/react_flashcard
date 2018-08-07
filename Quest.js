@@ -12,19 +12,26 @@ export default class Quest extends React.Component {
 	  ]); 
 	}
 	
+	onPress = () => this.props.navigation.navigate('Quest',{
+		questions: this.props.navigation.state.params.questions,
+		index: (this.props.navigation.state.params.index + 1)
+	});
+
 	render(){
 		return(
 			<View style={styles.container}>
-				<Text style={styles.title}>Does React Native work with Android?</Text>
+				<Text style={styles.title}>{this.props.navigation.state.params.questions[this.props.navigation.state.params.index].title}</Text>
 				<TouchableOpacity onPress={() => this.props.navigation.navigate('Answer')}>
 					<Text style={styles.subTitle}>Answer</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.button}>
-					<Text style={styles.textWhite}>Correct</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.buttonRed}>
-					<Text style={styles.textWhite}>Incorrect</Text>
-				</TouchableOpacity>
+				{(this.props.navigation.state.params.questions.length - 1) !== this.props.navigation.state.params.index && (
+					<View><TouchableOpacity style={styles.button} onPress={this.onPress}>
+						<Text style={styles.textWhite}>Correct</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.buttonRed} onPress={this.onPress}>
+						<Text style={styles.textWhite}>Incorrect</Text>
+					</TouchableOpacity></View>
+				)}
 			</View>
 		);
 	}

@@ -25,10 +25,10 @@ class Deck extends React.Component {
 			<View style={styles.container}>
 				{this.props.decks.map((deck) => (
 					<TouchableOpacity key={deck.id} style={styles.box} onPress={() => this.props.navigation.navigate('DeckDetails', {
-						idDeck: deck.id
+						deck
 					})}>
 						<Text style={styles.title}>{deck.title}</Text>
-						<Text style={styles.subTitle}>3 cards</Text>
+						<Text style={styles.subTitle}>{JSON.stringify(deck)}</Text>
 					</TouchableOpacity>
 				))}
 			</View>

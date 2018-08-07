@@ -1,7 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, YellowBox, TextInput, TouchableOpacity } from 'react-native';
+import { connect } from "react-redux";
+import { saveCardDeck } from './actions';
 
-export default class AddCard extends React.Component {
+const mapDispatchToProps = dispatch => {
+	return {
+		saveCardDeck: (id, card) => dispatch(saveCardDeck(id, card))
+	};
+};
+
+class AddCard extends React.Component {
 	constructor(props) {
 	 
 	   super(props);
@@ -12,12 +20,21 @@ export default class AddCard extends React.Component {
 	  ]); 
 	}
 	
+	state = {
+		title: '',
+		answer: ''
+	};
+	
+	handleSubmit = () => {
+		this.props.saveCardDeck(this.props.navigation.state.params.idDeck, this.state);
+	};
+	
 	render(){
 		return(
 			<View style={styles.container}>
-				<TextInput style={styles.input} placeholder = "Card Title"/>
-				<TextInput style={styles.input} placeholder = "Answer"/>
-				<TouchableOpacity style={styles.submitButton}>
+				<TextInput style={styles.input} onChangeText={(title) => { this.setState({ ...this.state, title }); }} placeholder = "Card Title"/>
+				<TextInput style={styles.input} onChangeText={(answer) => { this.setState({ ...this.state, answer }); }} placeholder = "Answer"/>
+				<TouchableOpacity style={styles.submitButton} onPress={this.handleSubmit}>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>
 			</View>
@@ -51,3 +68,5 @@ const styles = StyleSheet.create({
       color: 'white'
    }
 });
+
+export default connect(null, mapDispatchToProps)(AddCard);
