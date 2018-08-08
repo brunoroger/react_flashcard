@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from '
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import { saveDeckTitle } from './actions';
-//import { saveDeckTitle } from './utils/api';
+import * as LocalStorageApi from './utils/api';
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -27,10 +27,12 @@ class NewDeck extends React.Component {
 	};
 	
 	handleSubmit = () => {
-		//saveDeckTitle(this.state.title);
 		const id = uuidv1();
 		
-		this.props.saveDeckTitle(id, this.state.title);
+		LocalStorageApi.saveDeckTitle(id, this.state.title)
+		.then(() => {
+			this.props.saveDeckTitle(id, this.state.title);
+		});
 	};
 	
 	render(){

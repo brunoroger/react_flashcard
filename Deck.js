@@ -2,11 +2,19 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, YellowBox } from 'react-native';
 import { connect } from "react-redux";
 import { toArray } from './utils/helpers';
-import { getDecks } from './utils/api';
+import { saveDeckTitle, saveCardDeck } from './actions';
+import * as LocalStorageApi from './utils/api';
 
 const mapStateToProps = state => {
 	return {
 		decks: toArray(state.decks)
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		saveDeckTitle: (id, title) => dispatch(saveDeckTitle(id, title)),
+		saveCardDeck: (id, card) => dispatch(saveCardDeck(id, card))
 	};
 };
 
@@ -20,6 +28,21 @@ class Deck extends React.Component {
 		]);
 	}
 	
+	componentDidMount(){
+		LocalStorageApi.getDecks().then((resul) => {
+			if(resul){
+				resul.map((deck) => {
+					this.props.saveDeckTitle(deck.id, deck.title);
+					if (deck.questions) {
+						deck.questions.map((question) => {
+							this.props.saveCardDeck(deck.id, question);
+						});
+					}
+				});
+			}
+		});
+	}
+
 	render(){
 		return(
 			<View style={styles.container}>
@@ -57,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(Deck);
+export default connect(mapStateToProps, mapDispatchToProps)(Deck);

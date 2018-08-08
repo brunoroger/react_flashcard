@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, YellowBox, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from "react-redux";
 import { saveCardDeck } from './actions';
+import * as LocalStorageApi from './utils/api';
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -26,7 +27,10 @@ class AddCard extends React.Component {
 	};
 	
 	handleSubmit = () => {
-		this.props.saveCardDeck(this.props.navigation.state.params.idDeck, this.state);
+		LocalStorageApi.addCardToDeck(this.props.navigation.state.params.idDeck, this.state)
+		.then(() => {
+			this.props.saveCardDeck(this.props.navigation.state.params.idDeck, this.state);
+		});
 	};
 	
 	render(){
