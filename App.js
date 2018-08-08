@@ -9,7 +9,6 @@ import Deck from './Deck';
 import NewDeck from './NewDeck';
 import DeckDetails from './DeckDetails';
 import Quest from './Quest';
-import Answer from './Answer';
 import AddCard from './AddCard';
 import Score from './Score';
 
@@ -57,9 +56,6 @@ const Stack = StackNavigator({
   },
   Quest: {
 	screen: Quest
-  },
-  Answer: {
-	screen: Answer
   },
   AddCard: {
 	screen: AddCard

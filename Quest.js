@@ -24,17 +24,29 @@ class Quest extends React.Component {
 		return (this.props.navigation.state.params.questions.length - 1) === this.props.navigation.state.params.index;
 	}
 
-	onPress = (correct) => {
+	isAnswer = () => {
+		return this.props.navigation.state.params.answer;
+	}
+
+	onPress = (correct = false, answer = false, next = true) => {
 		if (correct) {
 			this.props.addScore();
 		}
 
-		if (this.lastIndex()) {
+		let index = 0;
+		if(next){
+			index = this.props.navigation.state.params.index + 1;
+		}else{
+			index = this.props.navigation.state.params.index;
+		}
+
+		if (this.lastIndex() && next) {
 			this.props.navigation.navigate('Score');
 		} else {
 			this.props.navigation.navigate('Quest',{
 				questions: this.props.navigation.state.params.questions,
-				index: (this.props.navigation.state.params.index + 1)
+				index,
+				answer
 			});
 		}
 	};
@@ -42,9 +54,13 @@ class Quest extends React.Component {
 	render(){
 		return(
 			<View style={styles.container}>
-				<Text style={styles.title}>{this.props.navigation.state.params.index + 1}/{this.props.navigation.state.params.questions.length} - {this.props.navigation.state.params.questions[this.props.navigation.state.params.index].title}</Text>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('Answer')}>
-					<Text style={styles.subTitle}>Answer</Text>
+				<Text style={styles.title}>{this.props.navigation.state.params.index + 1}/{this.props.navigation.state.params.questions.length} - {this.isAnswer() ? this.props.navigation.state.params.questions[this.props.navigation.state.params.index].answer : this.props.navigation.state.params.questions[this.props.navigation.state.params.index].title}</Text>
+				<TouchableOpacity onPress={() => {
+					const answer = this.isAnswer() ? false : true;
+
+					this.onPress(false, answer, false);
+				}}>
+					<Text style={styles.subTitle}>{this.isAnswer() ? 'Question' : 'Answer'}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={() => { this.onPress(true); }}>
 					<Text style={styles.textWhite}>Correct</Text>
