@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { setLocalNotification } from './utils/helpers';
 import { gray, white } from './utils/colors.js';
 import reducer from './reducers';
 import Deck from './Deck';
@@ -68,6 +69,9 @@ const Stack = StackNavigator({
 const store = createStore(reducer);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
 	  <Provider store={store}>
