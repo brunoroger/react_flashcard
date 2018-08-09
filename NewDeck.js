@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, YellowBox, TextInput, View } from 'react-native';
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import { saveDeckTitle } from './actions';
@@ -15,7 +15,7 @@ class NewDeck extends React.Component {
 	constructor(props) {
 	 
 	   super(props);
-	 
+
 	   YellowBox.ignoreWarnings([
 		'Warning: componentWillMount is deprecated',
 		'Warning: componentWillReceiveProps is deprecated',
@@ -32,6 +32,10 @@ class NewDeck extends React.Component {
 		LocalStorageApi.saveDeckTitle(id, this.state.title)
 		.then(() => {
 			this.props.saveDeckTitle(id, this.state.title);
+			this.setState({ title: '' });
+			this.txtDeckTitle.clear();
+			Alert.alert('Deck Create',
+			'Deck Created');
 		});
 	};
 	
@@ -39,7 +43,7 @@ class NewDeck extends React.Component {
 		return(
 			<View style={styles.container}>
 				<Text style={styles.title}>What is the title of your new deck?</Text>
-				<TextInput style={styles.input} onChangeText={(title) => { this.setState({title}); }} placeholder = "Deck Title"/>
+				<TextInput ref={input => { this.txtDeckTitle = input }} style={styles.input} onChangeText={(title) => { this.setState({title}); }} placeholder = "Deck Title"/>
 				<TouchableOpacity style={styles.submitButton} onPress={() => { this.handleSubmit(); } }>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>

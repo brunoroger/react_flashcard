@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, YellowBox, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, View, YellowBox, TextInput, TouchableOpacity } from 'react-native';
 import { connect } from "react-redux";
 import { saveCardDeck } from './actions';
 import * as LocalStorageApi from './utils/api';
@@ -30,14 +30,19 @@ class AddCard extends React.Component {
 		LocalStorageApi.addCardToDeck(this.props.navigation.state.params.idDeck, this.state)
 		.then(() => {
 			this.props.saveCardDeck(this.props.navigation.state.params.idDeck, this.state);
+			this.setState({ title: '', answer: '' });
+			this.txtCardTitle.clear();
+			this.txtCardAnswer.clear();
+			Alert.alert('Card Create',
+			'Card Created');
 		});
 	};
 	
 	render(){
 		return(
 			<View style={styles.container}>
-				<TextInput style={styles.input} onChangeText={(title) => { this.setState({ ...this.state, title }); }} placeholder = "Card Title"/>
-				<TextInput style={styles.input} onChangeText={(answer) => { this.setState({ ...this.state, answer }); }} placeholder = "Answer"/>
+				<TextInput ref={input => { this.txtCardTitle = input }} style={styles.input} onChangeText={(title) => { this.setState({ ...this.state, title }); }} placeholder = "Card Title"/>
+				<TextInput ref={input => { this.txtCardAnswer = input }} style={styles.input} onChangeText={(answer) => { this.setState({ ...this.state, answer }); }} placeholder = "Answer"/>
 				<TouchableOpacity style={styles.submitButton} onPress={this.handleSubmit}>
 					<Text style={styles.submitButtonText}>Submit</Text>
 				</TouchableOpacity>
