@@ -37,7 +37,8 @@ class DeckDetails extends React.Component {
 				{this.props.getDeck(this.idDeck).questions && this.props.getDeck(this.idDeck).questions.length > 0 && (
 					<TouchableOpacity style={styles.buttonBlack} onPress={() => this.props.navigation.navigate('Quest', {
 						questions: this.props.getDeck(this.idDeck).questions,
-						index: 0
+						index: 0,
+						idDeck: this.idDeck
 					})}>
 						<Text style={styles.textWhite}>Start Quiz</Text>
 					</TouchableOpacity>

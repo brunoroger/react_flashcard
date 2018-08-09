@@ -41,10 +41,13 @@ class Quest extends React.Component {
 		}
 
 		if (this.lastIndex() && next) {
-			this.props.navigation.navigate('Score');
+			this.props.navigation.navigate('Score',{
+				idDeck: this.props.navigation.state.params.idDeck
+			});
 		} else {
 			this.props.navigation.navigate('Quest',{
 				questions: this.props.navigation.state.params.questions,
+				idDeck: this.props.navigation.state.params.idDeck,
 				index,
 				answer
 			});

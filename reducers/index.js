@@ -1,5 +1,5 @@
 import { searchDeck } from '../utils/helpers.js';
-import { SAVE_DECK_TITLE, SAVE_CARD_DECK, ADD_SCORE } from '../actions';
+import { SAVE_DECK_TITLE, SAVE_CARD_DECK, ADD_SCORE, CLEAR_SCORE } from '../actions';
 
 const initialState = {
 	decks: {},
@@ -36,6 +36,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				score: state.score + 1
+			};
+		case CLEAR_SCORE:
+			return {
+				...state,
+				score: 0
 			};
 		default:
 			return state;
