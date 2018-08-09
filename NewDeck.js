@@ -36,6 +36,9 @@ class NewDeck extends React.Component {
 			this.txtDeckTitle.clear();
 			Alert.alert('Deck Create',
 			'Deck Created');
+			this.props.navigation.navigate('DeckDetails', {
+				idDeck: id
+			});
 		});
 	};
 	

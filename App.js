@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore } from 'redux';
